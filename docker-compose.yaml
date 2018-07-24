@@ -1,0 +1,60 @@
+version: '3'
+
+services:
+  smarthome.dashboard.influxsrv:
+    image: influxdb
+    container_name: smarthome.dashboard.influxsrv
+    restart: on-failure:3
+    networks:
+      - smarthome-network
+    volumes:
+      - influxdb-data:/var/lib/influxdb
+      - ./influxdb/influxdb.conf:/etc/influxdb/influxdb.conf
+      - ./influxdb/types.db:/usr/local/share/collectd/types.db
+    ports:
+      - "8083:8083"
+      - "8086:8086"
+      - "25826:25826/udp"
+    expose:
+      - 8090
+      - 8099
+    
+#    smarthome.dashboard.cadvisor:
+#        image: andrassebo/cadvisor
+#        container_name: smarthome.dashboard.cadvisor
+#        restart: unless-stopped
+#        networks:
+#            - smarthome-network
+#        volumes:
+#            - /:/rootfs:ro
+#            - /var/run:/var/run:rw
+#            - /sys:/sys:ro
+#            - /var/lib/docker/:/var/lib/docker:ro
+#            - /dev/disk/:/dev/disk:ro
+#            - /cgroup:/cgroup:ro
+#        command:
+#            - '-storage_driver=influxdb'
+#            - '-storage_driver_db=cadvisor'
+#            - '-storage_driver_host=smarthome.dashboard.influxsrv:8086'
+#        ports:
+#            - 8080
+#        env_file:
+#            - cadvisor.env
+
+  smarthome.dashboard.grafana:
+    image: andrassebo/grafana:latest
+    container_name: smarthome.dashboard.grafana
+    restart: on-failure:3
+    networks:
+      - smarthome-network
+    volumes:
+      - grafana-data:/var/lib/grafana
+    ports:
+      - "3000:3000"
+
+volumes:
+  grafana-data:
+  influxdb-data:
+
+networks:
+  smarthome-network:
