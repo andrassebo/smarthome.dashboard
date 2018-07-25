@@ -10,3 +10,6 @@ docker-compose up -d
 
 # configure influxdb for collectd
 influxdb/influxdb-init.sh
+
+# create grafana dashboard
+curl -XPOST -i http://localhost:3000/api/dashboards/db --data-binary @./grafana/pi-dashboard.json -H "Content-Type: application/json"
