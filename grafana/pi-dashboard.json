@@ -28,7 +28,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
-      "datasource": null,
+      "datasource": "host_collectd",
       "decimals": 1,
       "format": "s",
       "gauge": {
@@ -139,7 +139,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
-      "datasource": null,
+      "datasource": "host_collectd",
       "decimals": 1,
       "format": "celsius",
       "gauge": {
@@ -252,7 +252,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": null,
+      "datasource": "host_collectd",
       "fill": 1,
       "gridPos": {
         "h": 4,
@@ -372,7 +372,7 @@
         "label": "Others",
         "threshold": 0
       },
-      "datasource": null,
+      "datasource": "host_collectd",
       "decimals": 2,
       "fontSize": "80%",
       "format": "decbytes",
@@ -493,7 +493,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": null,
+      "datasource": "host_collectd",
       "fill": 1,
       "gridPos": {
         "h": 4,
@@ -748,55 +748,6 @@
           ]
         },
         {
-          "alias": "nice",
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "previous"
-              ],
-              "type": "fill"
-            }
-          ],
-          "measurement": "cpu_value",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "refId": "C",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "type",
-              "operator": "=",
-              "value": "percent"
-            },
-            {
-              "condition": "AND",
-              "key": "type_instance",
-              "operator": "=",
-              "value": "nice"
-            }
-          ]
-        },
-        {
           "alias": "irq",
           "groupBy": [
             {
@@ -892,7 +843,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": null,
+      "datasource": "host_collectd",
       "fill": 1,
       "gridPos": {
         "h": 10,
@@ -1082,7 +1033,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": null,
+      "datasource": "host_collectd",
       "fill": 1,
       "gridPos": {
         "h": 9,
@@ -1116,24 +1067,10 @@
       "targets": [
         {
           "alias": "in",
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
+          "groupBy": [],
+          "measurement": "interface_rx",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT derivative(\"value\")  AS \"value\" FROM \"interface_rx\" WHERE \"host\" = 'smartpi' AND \"type\" = 'if_octets' AND \"instance\" = 'eth0'",
-          "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
@@ -1145,33 +1082,27 @@
                 "type": "field"
               },
               {
-                "params": [],
-                "type": "mean"
+                "params": [
+                  "10s"
+                ],
+                "type": "derivative"
               }
             ]
           ],
-          "tags": []
+          "tags": [
+            {
+              "key": "type",
+              "operator": "=",
+              "value": "if_octets"
+            }
+          ]
         },
         {
           "alias": "out",
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
+          "groupBy": [],
+          "measurement": "interface_tx",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT derivative(\"value\") * -1 AS \"value\" FROM \"interface_tx\" WHERE \"host\" = 'smartpi' AND \"type\" = 'if_octets' AND \"instance\" = 'eth0'",
-          "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series",
           "select": [
@@ -1183,12 +1114,26 @@
                 "type": "field"
               },
               {
-                "params": [],
-                "type": "mean"
+                "params": [
+                  "10s"
+                ],
+                "type": "derivative"
+              },
+              {
+                "params": [
+                  "  * -1"
+                ],
+                "type": "math"
               }
             ]
           ],
-          "tags": []
+          "tags": [
+            {
+              "key": "type",
+              "operator": "=",
+              "value": "if_octets"
+            }
+          ]
         }
       ],
       "thresholds": [],
@@ -1237,7 +1182,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": null,
+      "datasource": "host_collectd",
       "fill": 1,
       "gridPos": {
         "h": 9,
@@ -1394,7 +1339,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": null,
+      "datasource": "host_collectd",
       "fill": 1,
       "gridPos": {
         "h": 10,
@@ -1644,7 +1589,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": null,
+      "datasource": "host_collectd",
       "fill": 1,
       "gridPos": {
         "h": 10,
@@ -1891,5 +1836,5 @@
   "timezone": "",
   "title": "PI",
   "uid": "AMq9uHZRk",
-  "version": 12
+  "version": 15
 }
