@@ -12,7 +12,7 @@
       }
     ]
   },
-  "description": "Basic dashboard for PI3 using Collectd metrics and InfluxDB",
+  "description": "Basic dashboard for Collectd metrics",
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
@@ -1834,7 +1834,7 @@
     ]
   },
   "timezone": "",
-  "title": "PI",
+  "title": "Computer",
   "uid": "AMq9uHZRk",
   "version": 15
 }
